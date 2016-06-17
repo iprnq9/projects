@@ -10,9 +10,8 @@
  *-----
  */
 
-/////////////////////////////
-//VARS
-//the time we give the sensor to calibrate (10-60 secs according to the datasheet)
+ 
+//Allow sensor to calibrate (10-60 secs according to the datasheet)
 int calibrationTime = 30;        
 
 //the time when the sensor outputs a low impulse
@@ -29,11 +28,8 @@ int pirPin = 3;    //the digital pin connected to the PIR sensor's output
 int ledPin = 2;    //the digital pin connected to the laser VCC
 
 
-
-/////////////////////////////
-//SETUP
 void setup(){
-  Serial.begin(9600);
+  Serial.begin(9600);  //baud rate of 9600
   pinMode(pirPin, INPUT);
   pinMode(ledPin, OUTPUT);
   digitalWrite(pirPin, LOW);
@@ -49,15 +45,14 @@ void setup(){
     delay(50);
   }
 
-////////////////////////////
-//LOOP
+
 void loop(){
 
      if(digitalRead(pirPin) == HIGH){
-       digitalWrite(ledPin, HIGH);   //the led visualizes the sensors output pin state
-       Serial.print("LASER ON for 60s.");
-       delay(60000);
-       digitalWrite(ledPin, LOW);
-       Serial.print("LASER OFF indefinitely.");
+       digitalWrite(ledPin, HIGH);               //turn on laser
+       Serial.print("LASER ON for 60s.");        //print to serial on status
+       delay(60000);                             //let laser stay on for 60s (or as desired)
+       digitalWrite(ledPin, LOW);                //turn off laser
+       Serial.print("LASER OFF indefinitely.");  //print to serial off status
       }
   }
